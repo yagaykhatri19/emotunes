@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 import cv2
 import base64
 import numpy as np
-from emotionRecognition import get_emotion
+from helper import get_emotion, getToken, getPlaylist
 
 app = Flask(__name__)
 
@@ -32,7 +32,6 @@ def emotunes():
 
             emotion = get_emotion(img_path='static/images/captured_image.png')
 
-            # Return JSON response to indicate success and redirection URL
             return jsonify({'redirect': '/playlist', 'emotion': emotion})
         except Exception as e:
             return jsonify({'error': str(e)})
@@ -42,7 +41,10 @@ def emotunes():
 @app.route('/playlist', methods=['GET', 'POST'])
 def playlist():
     emotion = request.args.get('emotion')
-    return render_template('playlist.html', image='static/images/captured_image.png', emotion=emotion)
+    token = getToken()
+    playlist_uri = getPlaylist(token, emotion)
+    print(playlist_uri)
+    return render_template('playlist.html', image='static/images/captured_image.png', emotion=emotion, playlist_uri=playlist_uri)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000)
