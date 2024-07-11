@@ -40,20 +40,21 @@
 
 
     //Spotify
-    window.onSpotifyIframeApiReady = (IFrameAPI) => {
-        const element = document.getElementById('embed-iframe');
-        if (element) {
-            const options = {
-                width: '100%',
-                height: '100%',
-                uri: '{{ playlist_uri }}'
-            };
-            const callback = (EmbedController) => { };
-            IFrameAPI.createController(element, options, callback);
-        } else {
-            console.error("Element with id 'embed-iframe' not found");
-        }
-    };
+window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    const element = document.getElementById('embed-iframe');
+    if (element) {
+        const options = {
+            width: '100%',
+            height: '100%',
+            uri: '{{ playlist_uri }}'
+        };
+        const callback = (EmbedController) => { };
+        IFrameAPI.createController(element, options, callback);
+    } else {
+        console.error("Element with id 'embed-iframe' not found");
+    }
+};
+
 
     // Webcam
     const video = document.getElementById('webcam');

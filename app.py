@@ -38,12 +38,20 @@ def emotunes():
     else:
         return render_template('emotunes.html')
     
-@app.route('/playlist', methods=['GET', 'POST'])
+# @app.route('/playlist', methods=['GET', 'POST'])
+# def playlist():
+#     emotion = request.args.get('emotion')
+#     token = getToken()
+#     playlist_uri = getPlaylist(token, emotion)
+#     print(playlist_uri)
+#     return render_template('playlist.html', image='static/images/captured_image.png', emotion=emotion, playlist_uri=playlist_uri)
+
+@app.route('/playlist', methods=['GET'])
 def playlist():
     emotion = request.args.get('emotion')
     token = getToken()
     playlist_uri = getPlaylist(token, emotion)
-    print(playlist_uri)
+    print(f"Emotion: {emotion}, Playlist URI: {playlist_uri}")  # Debugging
     return render_template('playlist.html', image='static/images/captured_image.png', emotion=emotion, playlist_uri=playlist_uri)
 
 if __name__ == "__main__":
